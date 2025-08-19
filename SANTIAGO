@@ -1,0 +1,70 @@
+using System;
+
+public class AtmSimulator
+{
+    public static void Main(string[] args)
+    {
+        Console.WriteLine("ATM Simulator by Therence Nina S. Santiago\n");
+         double currentBalance = 1000.00;
+
+        mainMenu:
+        while (true)
+        {
+            Console.WriteLine("Menu:");
+            Console.WriteLine("1. Check Balance");
+            Console.WriteLine("2. Deposit Money");
+            Console.WriteLine("3. Withdraw Money");
+            Console.WriteLine("4. Exit\n");
+
+            Console.Write("Enter your choice: ");
+            string option = Console.ReadLine();
+
+            switch (option)
+            {
+                case "1":
+                    Console.WriteLine($"Your current balance is ${currentBalance:F2}\n");
+                    break;
+
+                case "2":
+                    Console.Write("Enter the amount to deposit: ");
+                    double addAmount = Convert.ToDouble(Console.ReadLine());
+                    if (addAmount <= 0)
+                    {
+                        Console.WriteLine("Invalid deposit amount. Try again.\n");
+                        continue;
+                    }
+                    currentBalance += addAmount;
+                    Console.WriteLine($"Deposit successful! Your new balance is ${currentBalance:F2}\n");
+                    break;
+
+                case "3":
+                    Console.Write("Enter the amount to withdraw: ");
+                    double takeAmount = Convert.ToDouble(Console.ReadLine());
+                    if (takeAmount <= 0)
+                    {
+                        Console.WriteLine("Invalid withdrawal amount. Try again.\n");
+                        continue;
+                    }
+                    if (takeAmount > currentBalance)
+                    {
+                        Console.WriteLine("Insufficient balance! Please enter a smaller amount.\n");
+                        continue;
+                    }
+                    currentBalance -= takeAmount;
+                    Console.WriteLine($"Withdrawal successful! Your new balance is ${currentBalance:F2}\n");
+                    break;
+
+                case "4":
+                    Console.WriteLine("Thank you for using the ATM Simulator!");
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid choice! Please try again.\n");
+                    goto mainMenu;
+            }
+
+            if (option == "4") break;
+        }
+    }
+}
+
